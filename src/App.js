@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Button type="primary">Primary</Button>
+        <Button type="primary">Primary哈哈哈</Button>
       </header>
     </div>
   );
