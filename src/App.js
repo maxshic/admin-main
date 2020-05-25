@@ -1,17 +1,52 @@
-import React from 'react';
-
+import React ,{ useEffect ,useLayoutEffect } from 'react';
 import '@/App.less';
 
-import { Button } from 'antd'
+// import { Button } from 'antd'
+import { Switch ,Route ,Redirect ,withRouter } from 'react-router-dom'
+// import { useUpdateEffect } from '@umijs/hooks'
 
-function App() {
+import Login from '@/views/Login'
+import Dashboard from '@/views/Dashboard'
+import NoMatch from '@/components/404/NoMatch'
+
+// import NProgress from 'nprogress'
+
+const App = ({ location }) => {
+
+  // console.log(props)
+
+  useEffect(() => {
+    console.log(location.pathname)
+  } ,[location.pathname])
+
+  useLayoutEffect(() => {
+    console.log('end')
+  } ,[location.pathname])
+
+  // const math = useRouteMatch()
+  // console.log(math)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <Button type="primary">Primary</Button>
-      </header>
-    </div>
+    <Switch>
+      <Route path="/" exact>
+        <Redirect to="/login"></Redirect>
+      </Route>
+      <Route path="/login" title="hahah">
+        <Login />
+      </Route>
+      <Route path="/dashboard" title="lalaa">
+        <Dashboard />
+      </Route>
+      <Route path="*">
+        <NoMatch />
+      </Route>
+    </Switch>
+    // <div className="App">
+    //   <header className="App-header">
+    //     <Button type="primary">Primary</Button>
+    //   </header>
+    // </div>
   );
 }
 
-export default App;
+export default withRouter(App);
