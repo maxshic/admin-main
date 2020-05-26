@@ -1,0 +1,1 @@
+(this["webpackJsonpadmin-main"]=this["webpackJsonpadmin-main"]||[]).push([[4],{384:function(a,n,s){"use strict";s.r(n);var r=s(0),i=s.n(r);n.default=function(){return i.a.createElement("div",null,"Dashboard Dashboard Dashboard Dashboard Dashboard")}}}]);
