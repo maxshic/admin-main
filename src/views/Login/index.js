@@ -20,6 +20,9 @@ const styles = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50% ,-50%)',
+  },
+  remb: {
+    color: '#ffffff'
   }
 }
 
@@ -34,7 +37,7 @@ const View = (props) => {
 
   const onFinish = (values) => {
     console.log(values)
-    history.push('/dashboard')
+    history.push('/app')
   }
   return(
     <div style={ styles.layout }>
@@ -72,7 +75,7 @@ const View = (props) => {
           </Form.Item>
           <Form.Item>
             <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>Remember</Checkbox>
+              <Checkbox style={ styles.remb }>Remember</Checkbox>
             </Form.Item>
           </Form.Item>
           <Form.Item>

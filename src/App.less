@@ -1,5 +1,14 @@
 @import '~antd/dist/antd.less';
 
+.fade-enter {
+	opacity: 0;
+	z-index: 1;
+}
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 1000ms ease-in;
+}
+
 @keyframes Gradient{
   0%{
     background-position: 0% 50%;
