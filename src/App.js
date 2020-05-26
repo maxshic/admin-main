@@ -17,11 +17,11 @@ const App = ({ location }) => {
   // console.log(props)
 
   useEffect(() => {
-    console.log(location.pathname)
+    // console.log(location.pathname)
   } ,[location.pathname])
 
   useLayoutEffect(() => {
-    console.log('end')
+    // console.log('end')
   } ,[location.pathname])
 
   // const math = useRouteMatch()
@@ -35,18 +35,11 @@ const App = ({ location }) => {
       <Route path="/login">
         <Login />
       </Route>
-      <Route path="/app">
-        <Container />
-      </Route>
+      <Route path="/app" render={ (props) => <Container {...props}/> }></Route>
       <Route path="*">
         <NoMatch />
       </Route>
     </Switch>
-    // <div className="App">
-    //   <header className="App-header">
-    //     <Button type="primary">Primary</Button>
-    //   </header>
-    // </div>
   );
 }
 

@@ -6,7 +6,8 @@ import Loadable from 'react-loadable'
 const loadable = (loader) =>{
   return Loadable({
     loader,
-    loading: () => <div>loading...</div>
+    // loading: () => <div>loading...</div>
+    loading: () => <></>
   })
 } 
 

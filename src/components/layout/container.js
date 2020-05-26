@@ -1,14 +1,15 @@
 import React from 'react'
 import { Layout ,Menu } from 'antd'
-import { MenuFoldOutlined ,MenuUnfoldOutlined ,UserOutlined ,VideoCameraOutlined ,UploadOutlined } from '@ant-design/icons'
-import { Link, useRouteMatch ,Route ,Redirect } from 'react-router-dom'
+import { MenuFoldOutlined ,MenuUnfoldOutlined ,UserOutlined } from '@ant-design/icons'
+import { Switch, Link, useRouteMatch ,Route ,Redirect } from 'react-router-dom'
+import { CSSTransition ,TransitionGroup } from 'react-transition-group'
+import { useBoolean } from '@umijs/hooks'
 
-import Dashboard from '@/views/Dashboard'
+import { NProgress } from '@tanem/react-nprogress'
+import Container from '@/components/BarContainer'
+import Bar from  '@/components/Bar'
 
 import routes from '@/components/routes'
-
-
-
 
 const { Header ,Sider ,Content } = Layout
 
@@ -18,21 +19,44 @@ const styles = {
     height: '100%'
   },
   header: {
-    backgroundColor: '#ffffff'
-  }
+		backgroundColor: '#ffffff',
+		padding: '0 30px',
+	},
+	toggle: {
+		cursor: 'pointer',
+		fontSize: '18px',
+		transition: 'all .3s',
+	}
 }
 
 
 
-const View = () => {
+const View = ({ location }) => {
+	console.log(location)
 
-  const math = useRouteMatch()
-  const mainUrl = math.path
-  console.log('math' ,math)
+  const match = useRouteMatch()
+  const mainUrl = match.path
+  console.log('match' ,match)
+
+  const { state: collapsed, toggle } = useBoolean(false)
+  const { state: proLoading, setTrue: proTrue ,setFalse: proFalse } = useBoolean(false)
 
   return(
     <Layout style={ styles.con }>
-      <Sider>
+			<NProgress isAnimating={ proLoading } key={ location.pathname }>
+				{({ isFinished, progress, animationDuration }) => (
+					<Container
+						isFinished={isFinished}
+						animationDuration={animationDuration}
+					>
+						<Bar 
+							progress={progress}
+							animationDuration={animationDuration}
+						></Bar>
+					</Container>
+				)}
+			</NProgress>
+      <Sider trigger={ null } collapsible collapsed={ collapsed }>
         <Menu theme="dark" mode="inline" defaultSelectedKeys={ ['1'] }>
           <Menu.Item key="1" icon={ <UserOutlined /> }>
             <Link to='/app/dashboard'>
@@ -48,24 +72,36 @@ const View = () => {
         </Menu>
       </Sider>
       <Layout>
-        <Header style={ styles.header }></Header>
+        <Header style={ styles.header }>
+					<div onClick={() => toggle()} style={ styles.toggle }>
+						{ collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined /> }
+					</div>
+				</Header>
         <Content style={ styles.con }>
-          <Route path={ `${mainUrl}` } exact>
-            <Redirect to={ `${mainUrl}/dashboard` }></Redirect>
-          </Route>
-          {
-            routes.map((item ,index) => {
-              const Wrap = item.component
-              return(
-                // <div key={ index }>123</div>
-                <Route path={ `${mainUrl}/${item.path}` } key={ index } render={ () => <Wrap /> }></Route>
-                // <Route path={ `${mainUrl}/${item.path}` } key={ index } component={ item.component }></Route>
-              )
-            })
-          }
-          {/* <Route path={ `${mainUrl}/dashboard` }>
-            <Dashboard />
-          </Route> */}
+					<TransitionGroup>
+						<CSSTransition
+							key={ location.pathname }
+							classNames="fade"
+							timeout={ 1000 }
+							onEnter={() => proTrue()}
+							onEntered={() => proFalse()}
+						>
+							<Switch location={ location }>
+								<Route path={ `${mainUrl}` } exact>
+									<Redirect to={ `${mainUrl}/dashboard` }></Redirect>
+								</Route>
+								{
+									routes.map((item ,index) => {
+										const Wrap = item.component
+										return(
+											<Route exact path={ `${mainUrl}/${item.path}` } key={ index } render={ () => <Wrap /> }></Route>
+										)
+									})
+								}
+							</Switch>
+						</CSSTransition>
+					</TransitionGroup>
+					
         </Content>
       </Layout>
     </Layout>
