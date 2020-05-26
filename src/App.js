@@ -6,7 +6,8 @@ import { Switch ,Route ,Redirect ,withRouter } from 'react-router-dom'
 // import { useUpdateEffect } from '@umijs/hooks'
 
 import Login from '@/views/Login'
-import Dashboard from '@/views/Dashboard'
+// import Dashboard from '@/views/Dashboard'
+import Container from '@/components/layout/container'
 import NoMatch from '@/components/404/NoMatch'
 
 // import NProgress from 'nprogress'
@@ -31,11 +32,11 @@ const App = ({ location }) => {
       <Route path="/" exact>
         <Redirect to="/login"></Redirect>
       </Route>
-      <Route path="/login" title="hahah">
+      <Route path="/login">
         <Login />
       </Route>
-      <Route path="/dashboard" title="lalaa">
-        <Dashboard />
+      <Route path="/app">
+        <Container />
       </Route>
       <Route path="*">
         <NoMatch />
