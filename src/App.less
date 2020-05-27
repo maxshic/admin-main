@@ -1,12 +1,19 @@
 @import '~antd/dist/antd.less';
 
 .fade-enter {
-	opacity: 0;
-	z-index: 1;
+	opacity: 0!important;
+	transition: opacity 300ms ease-in!important;
 }
 .fade-enter.fade-enter-active {
-  opacity: 1;
-  transition: opacity 1000ms ease-in;
+  opacity: 1!important;
+}
+.fade-exit{
+  opacity: 1!important;
+  transition: opacity 300ms ease-in!important;
+}
+.fade-exit.fade-exit-active{
+  opacity: 0!important;
+  display: none!important;
 }
 
 @keyframes Gradient{
