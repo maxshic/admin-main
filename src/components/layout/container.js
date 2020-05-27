@@ -9,6 +9,8 @@ import { NProgress } from '@tanem/react-nprogress'
 import Container from '@/components/BarContainer'
 import Bar from  '@/components/Bar'
 
+// import withGuard from '@/components/Guard'
+
 import routes from '@/components/routes'
 
 const { Header ,Sider ,Content } = Layout
@@ -89,8 +91,9 @@ const View = (props) => {
         if(item.children){
           return drawRoute(item.children)
         }else{
+          // const Wrap = () => withGuard(item.name)(item.component)
           const Wrap = item.component
-          return <Route exact path={ `/app/${item.path}` } title={ item.name } key={ item.path } render={ () => <Wrap /> }></Route>
+          return <Route exact path={ `/app/${item.path}` } title={ item.name } key={ item.path } render={ () => <Wrap title={ item.name } /> }></Route>
         }
       })
     }

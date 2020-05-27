@@ -1,8 +1,14 @@
-import React from 'react'
+import React ,{ useEffect } from 'react'
 
-const Dashboard = () => {
+const Dashboard = ({ title }) => {
+
+  useEffect(() => {
+    console.log('aaaa' ,title)
+  } ,[])
+
   return(
-    <div>Dashboard
+    <div>
+      Dashboard
         Dashboard
         Dashboard
         Dashboard
