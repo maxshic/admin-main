@@ -1,20 +1,34 @@
 import React ,{ useEffect } from 'react'
 
-const Dashboard = ({ title }) => {
+import { Button } from 'antd'
+
+import { connect } from 'react-redux'
+
+const Dashboard = ({ title ,dispatch }) => {
 
   useEffect(() => {
     console.log('aaaa' ,title)
-  } ,[])
+  } ,[title])
+
+  const setMenu = () => {
+    dispatch({
+      type: 'ADD_TAG',
+      item: {
+        path: '/app/aaaaa',
+        name: '主页'
+      }
+    })
+  }
 
   return(
     <div>
-      Dashboard
-        Dashboard
-        Dashboard
-        Dashboard
-        Dashboard
+      <Button onClick={ () => setMenu() }>Dashboard</Button>
     </div>
   )
 }
 
-export default Dashboard
+export default connect((state) => {
+  return {
+    menus: state
+  }
+})(Dashboard)

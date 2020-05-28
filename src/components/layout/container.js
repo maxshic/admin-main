@@ -1,13 +1,17 @@
 import React ,{ useEffect } from 'react'
-import { Layout ,Menu } from 'antd'
+import { Layout ,Menu ,Tag } from 'antd'
 import { MenuFoldOutlined ,MenuUnfoldOutlined ,UserOutlined } from '@ant-design/icons'
 import { Switch, Link, useRouteMatch ,Route ,Redirect ,withRouter } from 'react-router-dom'
 import { CSSTransition ,TransitionGroup } from 'react-transition-group'
 import { useBoolean } from '@umijs/hooks'
 
+import { connect } from 'react-redux'
+
 import { NProgress } from '@tanem/react-nprogress'
 import Container from '@/components/BarContainer'
 import Bar from  '@/components/Bar'
+
+// import ajson from './a.json'
 
 // import withGuard from '@/components/Guard'
 
@@ -16,6 +20,13 @@ import routes from '@/components/routes'
 const { Header ,Sider ,Content } = Layout
 
 const styles = {
+  logo: {
+    margin: '10px',
+    backgroundColor: '#f2f2f2' ,
+    padding: '9px 0' ,
+    textAlign: 'center',
+    borderRadius: '3px'
+  },
   con: {
     width: '100%',
     height: '100%',
@@ -23,7 +34,7 @@ const styles = {
   content: {
     width: 'auto',
     height: '100%',
-    margin: '20px',
+    margin: '10px',
     padding: '15px',
     backgroundColor: '#fff',
     boxSizing: 'border-box',
@@ -38,11 +49,17 @@ const styles = {
 		cursor: 'pointer',
 		fontSize: '18px',
 		transition: 'all .3s',
-	}
+  },
+  tagCon: {
+    padding: '10px 10px 0px 10px',
+  },
+  tag: {
+    
+  }
 }
 
 const View = (props) => {
-  const { location } = props
+  const { location ,menus } = props
 
   console.log( 'props',props)
   
@@ -115,6 +132,7 @@ const View = (props) => {
 				)}
 			</NProgress>
       <Sider trigger={ null } collapsible collapsed={ collapsed }>
+        <div style={ styles.logo }>Logo</div>
         <Menu theme="dark" mode="inline" defaultSelectedKeys={ [location.pathname] }>
           { drawMenu(routes) }
         </Menu>
@@ -125,6 +143,13 @@ const View = (props) => {
 						{ collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined /> }
 					</div>
 				</Header>
+        <div style={ styles.tagCon }>
+          {
+            menus.map((item ,index) => {
+              return <Tag closable={ index !== 0 }>{ item.name }</Tag>
+            })
+          }
+        </div>
         <Content style={ styles.content }>
 					<TransitionGroup>
 						<CSSTransition
@@ -141,12 +166,6 @@ const View = (props) => {
 								</Route>
 								{
                   drawRoute(routes)
-									// routes.map((item ,index) => {
-									// 	const Wrap = item.component
-									// 	return(
-									// 		<Route exact path={ `${mainUrl}/${item.path}` } title={ item.name } key={ index } render={ () => <Wrap /> }></Route>
-									// 	)
-									// })
 								}
 							</Switch>
 						</CSSTransition>
@@ -157,4 +176,8 @@ const View = (props) => {
   )
 }
 
-export default withRouter(View)
+export default connect((state) => {
+  return{
+    menus: state
+  }
+})(withRouter(View))
