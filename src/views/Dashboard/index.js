@@ -7,12 +7,12 @@ import { connect } from 'react-redux'
 const Dashboard = ({ title ,dispatch }) => {
 
   useEffect(() => {
-    console.log('aaaa' ,title)
+    // console.log('aaaa' ,title)
   } ,[title])
 
   const setMenu = () => {
     dispatch({
-      type: 'ADD_TAG',
+      type: 'TAG_ADD',
       item: {
         path: '/app/aaaaa',
         name: '主页'

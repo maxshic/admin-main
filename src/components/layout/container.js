@@ -11,6 +11,7 @@ import { NProgress } from '@tanem/react-nprogress'
 import Container from '@/components/BarContainer'
 import Bar from  '@/components/Bar'
 
+// import TopHeader from './TopHeader'
 // import ajson from './a.json'
 
 // import withGuard from '@/components/Guard'
@@ -54,18 +55,19 @@ const styles = {
     padding: '10px 10px 0px 10px',
   },
   tag: {
-    
+    userSelect: 'none',
+    cursor: 'pointer',
   }
 }
 
 const View = (props) => {
   const { location ,menus } = props
 
-  console.log( 'props',props)
+  // console.log( 'props',props)
   
   const match = useRouteMatch()
   const mainUrl = match.path
-  console.log('match' ,match)
+  // console.log('match' ,match)
 
   const { state: collapsed, toggle } = useBoolean(false)
   const { state: proLoading, setTrue: proTrue ,setFalse: proFalse } = useBoolean(false)
@@ -110,10 +112,27 @@ const View = (props) => {
         }else{
           // const Wrap = () => withGuard(item.name)(item.component)
           const Wrap = item.component
-          return <Route exact path={ `/app/${item.path}` } title={ item.name } key={ item.path } render={ () => <Wrap title={ item.name } /> }></Route>
+          return (
+            <Route 
+              exact 
+              path={ `/app/${item.path}` } 
+              title={ item.name } 
+              key={ item.path } 
+              render={ 
+                () => <Wrap title={ item.name } /> 
+              }>
+            </Route>
+          )
         }
       })
     }
+  }
+
+  const tagClick = (index) => {
+    console.log(index)
+  }
+  const tagClose = () => {
+
   }
 
   return(
@@ -143,10 +162,21 @@ const View = (props) => {
 						{ collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined /> }
 					</div>
 				</Header>
+        {/* <TopHeader /> */}
         <div style={ styles.tagCon }>
           {
             menus.map((item ,index) => {
-              return <Tag closable={ index !== 0 }>{ item.name }</Tag>
+              return(
+                <Tag 
+                  style={ styles.tag } 
+                  closable={ index !== 0 } 
+                  key={ index } 
+                  onClick={ () => tagClick(index) }
+                  onClose={ () => tagClose() }
+                >
+                  { item.name }
+                </Tag>
+              )
             })
           }
         </div>
@@ -178,6 +208,6 @@ const View = (props) => {
 
 export default connect((state) => {
   return{
-    menus: state
+    menus: state.tagMenus
   }
 })(withRouter(View))

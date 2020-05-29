@@ -1,24 +1,12 @@
-import { createStore } from 'redux'
+import { createStore ,combineReducers ,applyMiddleware } from 'redux'
 
-const defaultState = [
-  {
-    path: '/app/dashboard',
-    name: '首页'
-  }
-]
+import collapseReducer from './reducer/collapseReducer'
+import tagReducer from './reducer/menuTagReducer'
 
-const reducer = (state = defaultState ,action) => {
-  switch(action.type){
-    case 'ADD_TAG':
-      return [...state ,action.item]
-    case 'DEL_TAG':
-      return state.filter(item => {
-        return item.path !== action.item.path
-      })
-    default:
-      return state
-  }
-}
+const reducer = combineReducers({
+  collapse: collapseReducer,
+  tagMenus: tagReducer
+})
 
 const store = createStore(reducer)
 
