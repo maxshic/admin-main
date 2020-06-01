@@ -23,12 +23,13 @@ const Dashboard = ({ title ,dispatch }) => {
   }
 
   const api = () => {
-    Apis.login({
-      username: 'admin',
-      password: 'admin'
-    }).then(res => {
+    // Apis.login({
+    //   username: 'admin',
+    //   password: 'admin'
+    // }).then(res => {
 
-    })
+    // })
+    dispatch({ type: 'USER_LOGIN' })
   }
 
   return(
@@ -41,6 +42,6 @@ const Dashboard = ({ title ,dispatch }) => {
 
 export default connect((state) => {
   return {
-    menus: state
+    user: state.user
   }
 })(Dashboard)

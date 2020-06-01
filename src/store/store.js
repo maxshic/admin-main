@@ -3,14 +3,16 @@ import createSagaMiddleware from 'redux-saga'
 
 import collapseReducer from './reducer/collapseReducer'
 import tagReducer from './reducer/menuTagReducer'
+import userReducer from './reducer/userReducer'
 
-import { helloSage } from './saga'
+import { rootSage } from './saga'
 
 const sagaMiddleware = createSagaMiddleware()
 
 const reducer = combineReducers({
   collapse: collapseReducer,
-  tagMenus: tagReducer
+  tagMenus: tagReducer,
+  user: userReducer
 })
 
 const store = createStore(
@@ -18,6 +20,6 @@ const store = createStore(
   applyMiddleware(sagaMiddleware)
 )
 
-sagaMiddleware.run(helloSage)
+sagaMiddleware.run(rootSage)
 
 export default store

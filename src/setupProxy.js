@@ -5,10 +5,11 @@ module.exports = function(app){
   app.use(
     createProxyMiddleware('/api' ,{
       target: 'https://www.fastmock.site/mock/6545014898bc71f3533cfd4bc1df14bc',
+      secure: false,
       changeOrigin: true,
-      pathRewrite: {
-        '^/api': ''
-      }
+      // pathRewrite: {
+      //   '^/api': ''
+      // }
     })
   )
 }

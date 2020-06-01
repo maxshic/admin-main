@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 const service = axios.create({
-  baseURL: 'https://www.fastmock.site/mock/6545014898bc71f3533cfd4bc1df14bc/apptest',
+  // baseURL: 'https://www.fastmock.site/mock/6545014898bc71f3533cfd4bc1df14bc/apptest',
+  baseURL: process.env.NODE_ENV === 'development' ? '' : 'https://www.fastmock.site/mock/6545014898bc71f3533cfd4bc1df14bc/apptest',
   timeout: 1000*60
 })
 
@@ -14,7 +15,7 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use(response => {
 
 
-  return response
+  return response.data
 })
 
 export default service
