@@ -10,6 +10,11 @@ import * as serviceWorker from './serviceWorker';
 
 import store from '@/store/store'
 
+// import { Component } from 'react'
+// Component.selfdata = 'hahahahah'
+
+// console.log(React)
+
 ReactDOM.render(
   <Provider store={ store }>
     <Router>

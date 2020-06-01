@@ -4,6 +4,8 @@ import { Button } from 'antd'
 
 import { connect } from 'react-redux'
 
+import Apis from '@/services/apis'
+
 const Dashboard = ({ title ,dispatch }) => {
 
   useEffect(() => {
@@ -20,9 +22,19 @@ const Dashboard = ({ title ,dispatch }) => {
     })
   }
 
+  const api = () => {
+    Apis.login({
+      username: 'admin',
+      password: 'admin'
+    }).then(res => {
+
+    })
+  }
+
   return(
     <div>
       <Button onClick={ () => setMenu() }>Dashboard</Button>
+      <Button onClick={ () => api() }>Dashboard</Button>
     </div>
   )
 }
