@@ -1,6 +1,6 @@
-import React from 'react'
+import React ,{ useState } from 'react'
 import { withRouter ,useHistory } from 'react-router-dom'
-
+import { connect } from 'react-redux'
 import { Button ,Form ,Input ,Checkbox } from 'antd'
 import { UserOutlined ,LockOutlined } from '@ant-design/icons'
 
@@ -26,8 +26,10 @@ const styles = {
   }
 }
 
-const View = (props) => {
+const View = ({ dispatch }) => {
   // console.log(props)
+
+  const [ loading ,setLoading ] = useState(false)
 
   const history = useHistory()
 
@@ -35,14 +37,23 @@ const View = (props) => {
   //   history.push('/dashboard')
   // }
 
-  const onFinish = (values) => {
-    console.log(values)
-    history.push('/app')
+  const onFinish = ({ username, password ,remember}) => {
+    // console.log(values)
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false)
+    }, 3000);
+    // dispatch({ 
+    //   type: 'USER_LOGIN' ,
+    //   payload: { username, password } 
+    // })
+    // setLoading(false)
+    // console.log(loading)
+    // history.push('/app')
   }
   return(
     <div style={ styles.layout }>
       <div style={ styles.con }>
-        {/* <Button type="primary" onClick={ toIndex }>Primary</Button> */}
         <Form 
           name="loginForm"
           className="loginForm"
@@ -60,10 +71,10 @@ const View = (props) => {
               }
             ]}
           >
-            <Input prefix={ <UserOutlined /> } placeholder="username" />
+            <Input prefix={ <UserOutlined /> } placeholder="username：admin" />
           </Form.Item>
           <Form.Item
-            name="loginpassword"
+            name="password"
             rules={[
               {
                 required: true,
@@ -71,7 +82,7 @@ const View = (props) => {
               }
             ]}
           >
-            <Input prefix={ <LockOutlined /> } type="password" placeholder="password" />
+            <Input prefix={ <LockOutlined /> } type="password" placeholder="password：admin" />
           </Form.Item>
           <Form.Item>
             <Form.Item name="remember" valuePropName="checked" noStyle>
@@ -79,7 +90,7 @@ const View = (props) => {
             </Form.Item>
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit" className="login-btn" block>Log in</Button>
+            <Button type="primary" htmlType="submit" className="login-btn" block loading={ loading }>Log in</Button>
           </Form.Item>
         </Form>
       </div>
@@ -87,4 +98,4 @@ const View = (props) => {
   )
 }
 
-export default withRouter(View)
+export default connect()(withRouter(View))

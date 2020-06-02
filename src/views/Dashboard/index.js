@@ -4,7 +4,7 @@ import { Button } from 'antd'
 
 import { connect } from 'react-redux'
 
-import Apis from '@/services/apis'
+// import Apis from '@/services/apis'
 
 const Dashboard = ({ title ,dispatch }) => {
 
