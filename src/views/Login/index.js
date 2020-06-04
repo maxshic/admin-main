@@ -39,14 +39,14 @@ const View = ({ dispatch }) => {
 
   const onFinish = ({ username, password ,remember}) => {
     // console.log(values)
-    setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-    }, 3000);
-    // dispatch({ 
-    //   type: 'USER_LOGIN' ,
-    //   payload: { username, password } 
-    // })
+    // setLoading(true)
+    // setTimeout(() => {
+    //   setLoading(false)
+    // }, 3000);
+    dispatch({ 
+      type: 'USER_LOGIN' ,
+      payload: { username, password } 
+    })
     // setLoading(false)
     // console.log(loading)
     // history.push('/app')
