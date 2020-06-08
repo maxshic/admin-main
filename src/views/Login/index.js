@@ -45,7 +45,10 @@ const View = ({ dispatch }) => {
     // }, 3000);
     dispatch({ 
       type: 'USER_LOGIN' ,
-      payload: { username, password } 
+      payload: { username, password },
+      callBack(res){
+        console.log('res' ,res)
+      }
     })
     // setLoading(false)
     // console.log(loading)
