@@ -10,7 +10,7 @@ import * as serviceWorker from './serviceWorker';
 
 import { PersistGate } from 'redux-persist/integration/react'
 
-import store from '@/store/store'
+import store ,{ persistor } from '@/store/store'
 
 // import { Component } from 'react'
 // Component.selfdata = 'hahahahah'
@@ -19,9 +19,11 @@ import store from '@/store/store'
 
 ReactDOM.render(
   <Provider store={ store }>
-    <Router>
-      <App />
-    </Router>
+    <PersistGate loading={ null } persistor={ persistor }>
+      <Router>
+        <App />
+      </Router>
+    </PersistGate>
   </Provider>,
   document.getElementById('root')
 );

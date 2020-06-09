@@ -11,19 +11,31 @@ import userReducer from './reducer/userReducer'
 
 import { rootSage } from './saga'
 
+//中间件
 const sagaMiddleware = createSagaMiddleware()
 
+//reducer
 const reducer = combineReducers({
   collapse: collapseReducer,
   tagMenus: tagReducer,
   user: userReducer
 })
 
+//persistConfig
+const persistConfig = {
+  key: 'root',
+  storage: storageSession
+}
+
+const persistedReducer = persistReducer(persistConfig ,reducer)
+
 const store = createStore(
-  reducer,
+  persistedReducer,
   applyMiddleware(sagaMiddleware)
 )
 
 sagaMiddleware.run(rootSage)
+
+export const persistor = persistStore(store)
 
 export default store
