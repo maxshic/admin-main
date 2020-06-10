@@ -32,6 +32,7 @@ const View = ({ dispatch }) => {
   const [ loading ,setLoading ] = useState(false)
 
   const history = useHistory()
+  console.log(history)
 
   // const toIndex = () => {
   //   history.push('/dashboard')
@@ -39,15 +40,17 @@ const View = ({ dispatch }) => {
 
   const onFinish = ({ username, password ,remember}) => {
     // console.log(values)
-    // setLoading(true)
+    setLoading(true)
     // setTimeout(() => {
     //   setLoading(false)
     // }, 3000);
-    dispatch({ 
+    dispatch({
       type: 'USER_LOGIN' ,
       payload: { username, password },
       callBack(res){
+        setLoading(false)
         console.log('res' ,res)
+        
       }
     })
     // setLoading(false)
