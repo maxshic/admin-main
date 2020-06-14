@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Layout } from 'antd'
 import { MenuUnfoldOutlined ,MenuFoldOutlined } from '@ant-design/icons'
 
@@ -15,10 +16,10 @@ const styles = {
   }
 }
 
-const View = () => {
+const View = ({ collapsed ,dispatch }) => {
 
   const toggle = () => {
-    
+    dispatch({ type: 'FOLD_TOGGLE' })
   }
 
   return(
@@ -30,4 +31,8 @@ const View = () => {
   )
 }
 
-export default View
+export default connect(state => {
+  return{
+    collapsed: state.collapse
+  }
+})(View)

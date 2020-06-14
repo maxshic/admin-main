@@ -1,7 +1,7 @@
 import React ,{ useEffect } from 'react'
-import { Layout ,Menu ,Tag } from 'antd'
-import { MenuFoldOutlined ,MenuUnfoldOutlined ,UserOutlined } from '@ant-design/icons'
-import { Switch, Link, useRouteMatch ,Route ,Redirect ,withRouter } from 'react-router-dom'
+import { Layout ,Tag } from 'antd'
+import { MenuFoldOutlined ,MenuUnfoldOutlined } from '@ant-design/icons'
+import { Switch, useRouteMatch ,Route ,Redirect ,withRouter } from 'react-router-dom'
 import { CSSTransition ,TransitionGroup } from 'react-transition-group'
 import { useBoolean } from '@umijs/hooks'
 
@@ -11,14 +11,16 @@ import { NProgress } from '@tanem/react-nprogress'
 import Container from '@/components/BarContainer'
 import Bar from  '@/components/Bar'
 
-// import TopHeader from './TopHeader'
+import SiderBar from './SiderBar'
+
+import TopHeader from './TopHeader'
 // import ajson from './a.json'
 
 // import withGuard from '@/components/Guard'
 
 import routes from '@/components/routes'
 
-const { Header ,Sider ,Content } = Layout
+const { Header ,Content } = Layout
 
 const styles = {
   logo: {
@@ -78,30 +80,6 @@ const View = (props) => {
     }
   } ,[location.pathname])
 
-  const drawMenu = (arr) => {
-    if(arr.length === 0){
-      return <></>
-    }else{
-      return arr.map(item => {
-        if(item.children){
-          return(
-            <Menu.SubMenu key={ `/app/${item.path}` } icon={ <UserOutlined /> } title={ item.name }>
-              { drawMenu(item.children) }
-            </Menu.SubMenu>
-          )
-        }else{
-          return(
-            <Menu.Item key={ `/app/${item.path}` } icon={ <UserOutlined /> }>
-              <Link to={ `/app/${item.path}` }>
-                <span>{ item.name }</span>
-              </Link>
-            </Menu.Item>
-          )
-        }
-      })
-    }
-  }
-
   const drawRoute = (arr) => {
     if(arr.length === 0){
       return <></>
@@ -150,19 +128,20 @@ const View = (props) => {
 					</Container>
 				)}
 			</NProgress>
-      <Sider trigger={ null } collapsible collapsed={ collapsed }>
+      {/* <Sider trigger={ null } collapsible collapsed={ collapsed }>
         <div style={ styles.logo }>Logo</div>
         <Menu theme="dark" mode="inline" defaultSelectedKeys={ [location.pathname] }>
           { drawMenu(routes) }
         </Menu>
-      </Sider>
+      </Sider> */}
+      <SiderBar routes={ routes } />
       <Layout>
-        <Header style={ styles.header }>
+        {/* <Header style={ styles.header }>
 					<div onClick={() => toggle()} style={ styles.toggle }>
 						{ collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined /> }
 					</div>
-				</Header>
-        {/* <TopHeader /> */}
+				</Header> */}
+        <TopHeader />
         <div style={ styles.tagCon }>
           {
             menus.map((item ,index) => {

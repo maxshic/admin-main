@@ -1,7 +1,7 @@
 import React ,{ useState } from 'react'
 import { withRouter ,useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { Button ,Form ,Input ,Checkbox } from 'antd'
+import { Button ,Form ,Input ,Checkbox ,message } from 'antd'
 import { UserOutlined ,LockOutlined } from '@ant-design/icons'
 
 const styles = {
@@ -32,11 +32,7 @@ const View = ({ dispatch }) => {
   const [ loading ,setLoading ] = useState(false)
 
   const history = useHistory()
-  console.log(history)
-
-  // const toIndex = () => {
-  //   history.push('/dashboard')
-  // }
+  // console.log(history)
 
   const onFinish = ({ username, password ,remember}) => {
     // console.log(values)
@@ -50,12 +46,14 @@ const View = ({ dispatch }) => {
       callBack(res){
         setLoading(false)
         console.log('res' ,res)
-        
+        if(res.data.userInfo !== null){
+          message.success('登录成功！')
+          history.push('/app')
+        }else{
+          message.error('登录失败！')
+        }
       }
     })
-    // setLoading(false)
-    // console.log(loading)
-    // history.push('/app')
   }
   return(
     <div style={ styles.layout }>
